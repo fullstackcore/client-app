@@ -41,7 +41,7 @@ function App() {
   }
 
   function handleFormOpen(id?: string) {
-    debugger;
+    //debugger;
     id ? handleSelectActivity(id) : handleCancelSelectActivity();
     setEditMode(true);
   }
