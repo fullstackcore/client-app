@@ -28,7 +28,7 @@ function App() {
         activities.push(activity);
       });
       setActivities(activities);
-      setLoading(false);
+      setLoading(false); //set loader to false
     });
   }, []);
 
