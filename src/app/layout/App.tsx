@@ -52,15 +52,25 @@ function App() {
 
   function handleEditorCreateActivity(activity: Activity) {
     setSubmitting(true);
-    debugger;
-    activity.id
-      ? setActivities([
+    if (activity.id) {
+      agent.Activities.update(activity).then(() => {
+        setActivities([
           ...activities.filter((x) => x.id !== activity.id),
           activity,
-        ])
-      : setActivities([...activities, { ...activity, id: uuid() }]);
-    setEditMode(false);
-    setSelectedActivity(activity);
+        ]);
+        setSelectedActivity(activity);
+        setEditMode(false);
+        setSubmitting(false);
+      });
+    } else {
+      activity.id = uuid();
+      agent.Activities.create(activity).then(() => {
+        setActivities([...activities, activity]);
+        setSelectedActivity(activity);
+        setEditMode(false);
+        setSubmitting(false);
+      });
+    }
   }
 
   function handleDeleteActivity(id: string) {
@@ -84,6 +94,7 @@ function App() {
           closeForm={handleFormClose}
           createOrEdit={handleEditorCreateActivity}
           deleteActivity={handleDeleteActivity}
+          submitting={submitting}
         ></ActivityDashboard>
       </Container>
     </Fragment>
