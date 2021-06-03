@@ -74,8 +74,7 @@ function App() {
   }
 
   function handleDeleteActivity(id: string) {
-   // setActivities([...activities.filter((x) => x.id !== id)]);
-    //set delete activity cvcv 
+    // setActivities([...activities.filter((x) => x.id !== id)]);
   }
 
   if (loading)
