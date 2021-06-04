@@ -1,6 +1,6 @@
 import { createContext,useContext } from "react";
 import ActivityStore from "./activityStore";
-import {makeObservable} from 'mobx';
+
 interface Store{
     activityStore: ActivityStore
 }
