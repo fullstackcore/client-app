@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 
 import { Container } from "semantic-ui-react";
 
@@ -13,10 +13,25 @@ import ActivityDetails from "../../features/activities/details/ActivityDetails";
 import LoginForm from "../../features/users/LoginForm";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useStore } from "../stores/store";
+import LoadingComponent from "./LoadingComponent";
 toast.configure();
 
 function App() {
+  debugger;
   const location = useLocation();
+  const { commonStore, userStore } = useStore();
+  useEffect(() => {
+    if (commonStore.token) {
+      userStore.getUser().finally(() => commonStore.setAppLoaded());
+    } else {
+      commonStore.setAppLoaded();
+    }
+  }, [commonStore, userStore]);
+
+  if (!commonStore.appLoaded)
+    return <LoadingComponent content="Loading app..."></LoadingComponent>;
+
   return (
     <Fragment>
       <ToastContainer position="bottom-right" hideProgressBar></ToastContainer>

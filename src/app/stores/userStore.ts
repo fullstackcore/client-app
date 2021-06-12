@@ -22,9 +22,11 @@ import { store } from "./store";
         try {
             const user = await agent.Account.login(creds);
             store.commonStore.setToken(user.token);
+            debugger;
             runInAction(() => this.user = user);
             //history.push()
             history.push('/activities/');
+            
          
         }
         catch (error) {
@@ -39,4 +41,18 @@ import { store } from "./store";
           
 
       }
+
+      getUser = async () => {
+          debugger;
+          try {
+              const user = await agent.Account.current();
+              runInAction(() => { this.user = user });
+          }
+          catch(error)
+          {
+              console.log(error);
+          
+      }
+      }
+      
 }
